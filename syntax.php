@@ -6,20 +6,6 @@ if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
  * Tab plugin using jQuery
  */
 class syntax_plugin_tabinclude extends DokuWiki_Syntax_Plugin{
- /**
-  * return some info
-  */
-  function getInfo(){
-    return array(
-    'author' => 'Ikuo Obataya',
-    'email'  => 'I.Obataya@gmail.com',
-    'date'   => '2013-01-27',
-    'name'   => 'Tab control using jQuery UI',
-    'desc'   => 'Create tab control using jQuery UI
-                 {{tab>(page1),(page2),(page3)...}}',
-    'url'    => 'http://symplus.edu-wiki.org/en/tabinclude_plugin',
-    );
-  }
   function getType(){ return 'substition'; }
   function getSort(){ return 158; }
   function connectTo($mode){$this->Lexer->addSpecialPattern('\{\{tabinclude>[^}]*\}\}',$mode,'plugin_tabinclude');}
