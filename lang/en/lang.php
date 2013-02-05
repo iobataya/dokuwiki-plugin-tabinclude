@@ -1,2 +1,3 @@
 <?php
-$lang['gotohere']         = '>> Go to this page.';
+$lang['loading']     = 'Loading ...';
+$lang['gotohere']    = '>> Go to this page.';

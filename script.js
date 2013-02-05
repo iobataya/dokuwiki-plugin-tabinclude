@@ -8,7 +8,7 @@ function dwpl_ti_refresh(page){
     jQuery('#dwpl-ti-content').css({visibility:'hidden'});
     jQuery('#dwpl-ti-loading').css({display:'block'});
     // POST AJAX
-    jQuery.post(DOKU_BASE + 'lib/plugins/tabinclude/ajax.php', { call: "content", page: encodeURI(page) })
+    jQuery.post(DOKU_BASE + 'lib/plugins/tabinclude/ajax.php', { call: 'content', page: encodeURI(page) })
       .done(function(data) {
         // Refresh tab page
         jQuery('#dwpl-ti-content').html(data);
@@ -22,7 +22,8 @@ function dwpl_ti_refresh(page){
  */
 function dwpl_ti_showInitialPage(){
   // set event handler
-  jQuery('.dwpl-ti-tab-title').each(function(){
+//  jQuery('.dwpl-ti-tab-title').each(function(){
+  jQuery('ul.dwpl-ti li div.dwpl-ti-tab-title').each(function(){
     jQuery(this).click(function(){
       // unselect all tabs
       jQuery('.dwpl-ti-tab-title').removeClass('selected');
@@ -31,12 +32,12 @@ function dwpl_ti_showInitialPage(){
       dwpl_ti_refresh(jQuery(this).attr('value'));
     })
   });
-
   // set initial page
   selectedpage = jQuery('#dwpl-ti-initpage');
-  jQuery("div[value="+selectedpage.val()+"]").addClass("selected");
+  jQuery('div[value='+selectedpage.val()+']').addClass('selected');
   if(selectedpage){
     dwpl_ti_refresh(selectedpage.val());
   }
 }
 jQuery(function(){dwpl_ti_showInitialPage();});
+
