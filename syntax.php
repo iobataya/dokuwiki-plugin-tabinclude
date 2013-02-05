@@ -3,7 +3,7 @@ if(!defined('DOKU_INC')) die();
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 @require_once(DOKU_PLUGIN.'syntax.php');
 /**
- * Tab plugin using jQuery
+ * Tab plugin
  */
 class syntax_plugin_tabinclude extends DokuWiki_Syntax_Plugin{
   function getType(){ return 'substition'; }
@@ -18,58 +18,75 @@ class syntax_plugin_tabinclude extends DokuWiki_Syntax_Plugin{
     return array($state,$pages);
   }
  /**
-  * Render tab control by using jQuery UI
+  * Render tab control
   */
   function render($mode, &$renderer, $data) {
-    global $conf;
-    global $ID;
-    list($state, $pages) = $data;
-    $sz = count($pages);
-    if($sz==0) return true;
     if ($mode=='xhtml'){
-      ob_start();
-      echo '<div id="jquery-tabs"><ul>'.NL;
-      for($i=0;$i<$sz;$i++){
-        $page = hsc(trim($pages[$i]));
-        resolve_pageid(getNS($ID),$page,$exists);
-        $title = p_get_metadata($page,'title');
-        $title = empty($title)?$page:hsc(trim($title));
-        echo '<li><a href="'.wl($pages[$i]).'"><span>'.$title.'</span></a></li>'.NL;
-      }
-      echo '</ul></div>';
-      echo '<input id="explicit_container" type="hidden" value="'.$this->getConf('explicit_container').'"/>';
-      echo '</div>'.NL;
-      $renderer->doc.=ob_get_contents();
+        list($state, $pages) = $data;
+        $sz = count($pages);
+        if($sz==0) return true;
 
-      ob_end_clean();
-      return true;
+        $html.= '<div class="dwpl-ti-container"><ul>'.NL;
+        for($i=0;$i<$sz;$i++){
+          $page = trim($pages[$i]);
+          if($i==0) $init_page = $page;
+          if($page[0]=='*'){
+            $page = substr($page,1);
+            $init_page = $page;
+          }
+          if(strpos($page,'|')!==false){
+            $items = explode('|',$page);
+            $page = $items[0];
+            $title = $items[1];
+          }else{
+            $title = $page;
+          }
+          resolve_pageid(getNS($ID),$page,$exists);
+          $title = p_get_metadata($page,'title');
+          $title = empty($title)?$page:$title;
+
+          $html.='<li class="dwpl-ti-tab" id="tab'.$i.'">';
+          $html.='<div class="dwpl-ti-tab-title" value="'.$page.'">';
+          $html.=$title;
+          $html.='</div>';
+          $html.='</li>'.NL;
+        }
+        $html.= '</ul><input id="dwpl-ti-initpage" type="hidden" value="'.$init_page.'"/>'.NL;
+        $html.='<div class="dw-pl-ti-content-box">'.NL;
+        if($this->getConf('hideloading')!=1){
+          $html.='<div id="dwpl-ti-loading" class="dwpl-ti-loading">LOADING...</div>'.NL;
+        }
+        $html.='<div id="dwpl-ti-content" class="dwpl-ti-content"></div>'.NL;
+        $html.= '</div></div>'.NL;
+        $renderer->doc.=$html;
+        return true;
     }else if($mode=='odt'){
-      $renderer->strong_open();
-      $renderer->doc.='Tab pages';
-      $renderer->strong_close();
-      $renderer->p_close();
-
-      $renderer->listu_open();
-      for($i=0;$i<$sz;$i++){
-        $page = hsc(trim($pages[$i]));
-        resolve_pageid(getNS($ID),$page,$exists);
-        $title = p_get_metadata($page,'title');
-        $title = empty($title)?$page:hsc(trim($title));
-        $abstract = p_get_metadata($page);
-
-        $renderer->listitem_open();
-        $renderer->p_open();
-        $renderer->internallink($page,$title);
+        $renderer->strong_open();
+        $renderer->doc.='Tab pages';
+        $renderer->strong_close();
         $renderer->p_close();
+
+        $renderer->listu_open();
+        for($i=0;$i<$sz;$i++){
+            $page = hsc(trim($pages[$i]));
+            resolve_pageid(getNS($ID),$page,$exists);
+            $title = p_get_metadata($page,'title');
+            $title = empty($title)?$page:hsc(trim($title));
+            $abstract = p_get_metadata($page);
+
+            $renderer->listitem_open();
+            $renderer->p_open();
+            $renderer->internallink($page,$title);
+            $renderer->p_close();
+            $renderer->p_open();
+            if(is_array($abstract))
+                $renderer->doc.=hsc($abstract['description']['abstract']);
+            $renderer->p_close();
+            $renderer->listitem_close();
+        }
+        $renderer->listu_close();
         $renderer->p_open();
-        if(is_array($abstract))
-          $renderer->doc.=hsc($abstract['description']['abstract']);
-        $renderer->p_close();
-        $renderer->listitem_close();
-      }
-      $renderer->listu_close();
-      $renderer->p_open();
-      return true;
+        return true;
     }
     return false;
   }
