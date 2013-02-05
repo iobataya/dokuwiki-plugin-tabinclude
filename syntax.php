@@ -42,8 +42,8 @@ class syntax_plugin_tabinclude extends DokuWiki_Syntax_Plugin{
             $title = $items[1];
           }else{
             $title = $page;
-　　          resolve_pageid(getNS($ID),$page,$exists);
-    　　      $title = p_get_metadata($page,'title');
+            resolve_pageid(getNS($ID),$page,$exists);
+            $title = p_get_metadata($page,'title');
           }
           $title = empty($title)?$page:$title;
           $html.='<li class="dwpl-ti-tab"><div class="dwpl-ti-tab-title" value="'.$page.'">'.$title.'</div></li>'.NL;
