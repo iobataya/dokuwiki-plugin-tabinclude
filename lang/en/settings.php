@@ -1,2 +1,4 @@
 <?php
-$lang['explicit_container']      = 'ID or class for a page container element (example: .page or #bodyContent)';
+$lang['hideloading']      = 'Hide loading message';
+$lang['goto_link_header'] = 'Show page link at header';
+$lang['goto_link_footer'] = 'Show page link at footer';
