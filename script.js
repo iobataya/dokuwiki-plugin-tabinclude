@@ -34,7 +34,7 @@ function dwpl_ti_showInitialPage(){
   });
   // set initial page
   selectedpage = jQuery('#dwpl-ti-initpage');
-  jQuery('div[value='+selectedpage.val()+']').addClass('selected');
+  jQuery('div[value="'+selectedpage.val()+'"]').addClass('selected');
   if(selectedpage){
     dwpl_ti_refresh(selectedpage.val());
   }
