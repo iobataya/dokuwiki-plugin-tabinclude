@@ -32,9 +32,11 @@ class syntax_plugin_tabinclude extends DokuWiki_Syntax_Plugin{
         for($i=0;$i<$sz;$i++){
           $page = trim($pages[$i]);
           if($i==0) $init_page = $page;
+          $selected_class = '';
           if($page[0]=='*'){
             $page = substr($page,1);
             $init_page = $page;
+            $selected_class = ' selected';
           }
           if(strpos($page,'|')!==false){
             $items = explode('|',$page);
@@ -46,7 +48,7 @@ class syntax_plugin_tabinclude extends DokuWiki_Syntax_Plugin{
             $title = p_get_metadata($page,'title');
           }
           $title = empty($title)?$page:$title;
-          $html.='<li class="dwpl-ti-tab"><div class="dwpl-ti-tab-title" value="'.$page.'">'.$title.'</div></li>'.NL;
+          $html.='<li class="dwpl-ti-tab"><div class="dwpl-ti-tab-title'.$selected_class.'" value="'.$page.'">'.$title.'</div></li>'.NL;
         }
         $html.= '</ul>'.NL;
 
@@ -73,7 +75,6 @@ class syntax_plugin_tabinclude extends DokuWiki_Syntax_Plugin{
             $title = p_get_metadata($page,'title');
             $title = empty($title)?$page:hsc(trim($title));
             $abstract = p_get_metadata($page);
-
             $renderer->listitem_open();
             $renderer->p_open();
             $renderer->internallink($page,$title);
