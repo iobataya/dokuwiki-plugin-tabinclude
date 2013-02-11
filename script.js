@@ -8,7 +8,7 @@ function dwpl_ti_refresh(page){
     jQuery('#dwpl-ti-content').css({visibility:'hidden'});
     jQuery('#dwpl-ti-loading').css({display:'block'});
     // POST AJAX
-    jQuery.post(DOKU_BASE + 'lib/plugins/tabinclude/ajax.php', { call: 'content', page: encodeURI(page) })
+    jQuery.post(DOKU_BASE + 'lib/plugins/tabinclude/ajax.php', { call: 'content', page: page })
       .done(function(data) {
         // Refresh tab page
         jQuery('#dwpl-ti-content').html(data);
