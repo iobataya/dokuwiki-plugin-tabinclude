@@ -21,6 +21,8 @@ class syntax_plugin_tabinclude extends DokuWiki_Syntax_Plugin{
   * Render tab control
   */
   function render($mode, &$renderer, $data) {
+    global $ID;
+
     if ($mode=='xhtml'){
         list($state, $pages) = $data;
         $sz = count($pages);
