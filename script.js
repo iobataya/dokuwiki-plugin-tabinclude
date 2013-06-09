@@ -20,7 +20,7 @@ function dwpl_ti_refresh(page){
 /**
  * Initial process
  */
-function dwpl_ti_showInitialPage(){
+function dwpl_ti_init(){
   // set event handler
   jQuery('ul.dwpl-ti li div.dwpl-ti-tab-title').each(function(){
     jQuery(this).click(function(){
@@ -31,11 +31,6 @@ function dwpl_ti_showInitialPage(){
       dwpl_ti_refresh(jQuery(this).attr('value'));
     })
   });
-  // set initial page
-  selectedpage = jQuery('#dwpl-ti-initpage');
-  if(selectedpage){
-    dwpl_ti_refresh(selectedpage.val());
-  }
 }
-jQuery(function(){dwpl_ti_showInitialPage();});
+jQuery(function(){dwpl_ti_init();});
 

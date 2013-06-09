@@ -27,40 +27,43 @@ class syntax_plugin_tabinclude extends DokuWiki_Syntax_Plugin{
         list($state, $pages) = $data;
         $sz = count($pages);
         if($sz==0) return true;
-        $html.= '<div id="dwpl-ti-container">'.NL;
 
         // loop for tabs
-        $html.='<ul class="dwpl-ti">'.NL;
+        $tabs = array();
+        $init_page_idx = 0;
         for($i=0;$i<$sz;$i++){
           $page = trim($pages[$i]);
-          if($i==0) $init_page = $page;
-          $selected_class = '';
           if($page[0]=='*'){
-            $page = substr($page,1);
-            $init_page = $page;
-            $selected_class = ' selected';
+              $init_page_idx=$i;
+              $page = substr($page,1);
           }
-          if(strpos($page,'|')!==false){
-            $items = explode('|',$page);
-            $page = $items[0];
-            $title = $items[1];
+          $items = explode('|',$page);
+          if(count($items)>0){
+            list($page,$title)=$items;
           }else{
-            $title = $page;
-            $title = p_get_metadata($page,'title');
+            if(!$title = p_get_metadata($page,'title')){
+              $title = $page;
+            }
           }
           resolve_pageid(getNS($ID),$page,$exists);
-          $title = empty($title)?$page:$title;
-          $html.='<li class="dwpl-ti-tab"><div class="dwpl-ti-tab-title'.$selected_class.'" value="'.$page.'">'.$title.'</div></li>'.NL;
+          $tabs[$i] = array('page'=>hsc($page),'title'=>hsc($title));
+        }
+
+        // render
+        $html.= '<div id="dwpl-ti-container">'.NL;
+        $html.='<ul class="dwpl-ti">'.NL;
+        for($i=0;$i<$sz;$i++){
+            $selected_class=($init_page_idx==$i)?' selected':'';
+            $html.='<li class="dwpl-ti-tab"><div class="dwpl-ti-tab-title'.$selected_class.'" value="'.$tabs[$i]['page'].'">'.$tabs[$i]['title'].'</div></li>'.NL;
         }
         $html.= '</ul>'.NL;
-
-        $html.= '<input id="dwpl-ti-initpage" type="hidden" value="'.$init_page.'"/>';
         $html.='<div class="dwpl-ti-content-box">';
         if($this->getConf('hideloading')!=1){
           $html.='<div id="dwpl-ti-loading" class="dwpl-ti-loading">'.$this->getLang('loading').'</div>';
         }
-        $html.='<div id="dwpl-ti-content" class="dwpl-ti-content"></div>';
-        $html.= '</div>'.NL.'</div>'.NL;
+        $html.='<div id="dwpl-ti-content" class="dwpl-ti-content">';
+        $html.=tpl_include_page($tabs[$init_page_idx]['page'],false);
+        $html.= '</div></div>'.NL.'</div>'.NL;
 
         $renderer->doc.=$html;
         return true;
