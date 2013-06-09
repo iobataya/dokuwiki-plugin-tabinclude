@@ -38,7 +38,7 @@ class syntax_plugin_tabinclude extends DokuWiki_Syntax_Plugin{
               $page = substr($page,1);
           }
           $items = explode('|',$page);
-          if(count($items)>0){
+          if(count($items)>1){
             list($page,$title)=$items;
           }else{
             if(!$title = p_get_metadata($page,'title')){
