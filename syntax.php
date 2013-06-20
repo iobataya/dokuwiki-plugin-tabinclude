@@ -32,6 +32,7 @@ class syntax_plugin_tabinclude extends DokuWiki_Syntax_Plugin{
         $tabs = array();
         $init_page_idx = 0;
         for($i=0;$i<$sz;$i++){
+          $title='';
           $page = trim($pages[$i]);
           if($page[0]=='*'){
               $init_page_idx=$i;
@@ -39,13 +40,19 @@ class syntax_plugin_tabinclude extends DokuWiki_Syntax_Plugin{
           }
           $items = explode('|',$page);
           if(count($items)>1){
-            list($page,$title)=$items;
-          }else{
-            if(!$title = p_get_metadata($page,'title')){
-              $title = $page;
-            }
+              list($page,$title)=$items;
           }
           resolve_pageid(getNS($ID),$page,$exists);
+          if($title==''){
+            $title = $this->getConf('namespace_in_tab')?$page:noNS($page);
+          }
+          if($this->getConf('use_first_heading')){
+            $meta_title= p_get_metadata($page,'title');
+            if($meta_title!=''){
+              $title = $meta_title;
+            }
+          }
+
           $tabs[$i] = array('page'=>hsc($page),'title'=>hsc($title));
         }
 

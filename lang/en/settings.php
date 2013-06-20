@@ -1,4 +1,6 @@
 <?php
+$lang['use_first_heading']= 'Use first heading in tab';
+$lang['namespace_in_tab'] = 'Include namespaces for page ID';
 $lang['hideloading']      = 'Hide loading message';
 $lang['goto_link_header'] = 'Show page link at header';
 $lang['goto_link_footer'] = 'Show page link at footer';
