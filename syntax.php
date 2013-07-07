@@ -52,16 +52,27 @@ class syntax_plugin_tabinclude extends DokuWiki_Syntax_Plugin{
               $title = $meta_title;
             }
           }
-
-          $tabs[$i] = array('page'=>hsc($page),'title'=>hsc($title));
+          if(page_exists($page)==false){
+              $tabs[$i] = array('error'=>'# ERROR #');
+              msg($this->getLang('error_notfound').' : '.hsc($page));
+          }else if($ID==$page){
+              $tabs[$i] = array('error'=>'# ERROR #');
+              msg($this->getLang('error_parent').' : '.hsc($page));
+          }else{
+            $tabs[$i] = array('page'=>hsc($page),'title'=>hsc($title));
+          }
         }
 
         // render
         $html.= '<div id="dwpl-ti-container">'.NL;
         $html.='<ul class="dwpl-ti">'.NL;
         for($i=0;$i<$sz;$i++){
-            $selected_class=($init_page_idx==$i)?' selected':'';
-            $html.='<li class="dwpl-ti-tab"><div class="dwpl-ti-tab-title'.$selected_class.'" value="'.$tabs[$i]['page'].'">'.$tabs[$i]['title'].'</div></li>'.NL;
+            if(empty($tabs[$i]['error'])){
+              $selected_class=($init_page_idx==$i)?' selected':'';
+              $html.='<li class="dwpl-ti-tab"><div class="dwpl-ti-tab-title'.$selected_class.'" value="'.$tabs[$i]['page'].'">'.$tabs[$i]['title'].'</div></li>'.NL;
+            }else{
+              $html.='<li class="dwpl-ti-tab"><div class="dwpl-ti-tab-title">'.$tabs[$i]['error'].'</div></li>'.NL;
+            }
         }
         $html.= '</ul>'.NL;
         $html.='<div class="dwpl-ti-content-box">';
