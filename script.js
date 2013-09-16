@@ -29,7 +29,7 @@ function dwpl_ti_init(){
       // select a tab
       jQuery(this).addClass('selected');
       dwpl_ti_refresh(jQuery(this).attr('value'));
-    })
+    });
   });
 }
 jQuery(function(){dwpl_ti_init();});

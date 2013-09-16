@@ -33,7 +33,7 @@ if(auth_quickaclcheck($ID) < AUTH_READ) die('No permission to read');
 $link = $ID;
 if(strpos($ID,":")===0) $link = substr($ID,1);
 $ACT = 'show';
-$ti = plugin_load('syntax','tabinclude');
+$ti = plugin_load('helper','tabinclude');
 $goto = $ti->getLang('gotohere');
 $pagelink = tpl_link(wl($link),$goto,'',true);
 

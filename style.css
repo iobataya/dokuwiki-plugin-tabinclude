@@ -53,6 +53,10 @@ div#dwpl-ti-container li.dwpl-ti-tab div.dwpl-ti-tab-title{
 div#dwpl-ti-container li.dwpl-ti-tab div.dwpl-ti-tab-title.selected{
   color:__text__;
 }
+div#dwpl-ti-container li.dwpl-ti-tab div.error
+{
+ padding-left: 32px;
+}
 
 /**
  * Tab content
