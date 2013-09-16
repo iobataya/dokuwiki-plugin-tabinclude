@@ -72,8 +72,6 @@ class helper_plugin_tabinclude extends DokuWiki_Plugin {
             $html.= '<div class="dwpl-ti-permalink-footer">'.$pagelink.'</div>'.NL;
         $html.= '</div></div>'.NL.'</div>'.NL;
 
-        $html.= '</div></div>'.NL.'</div>'.NL;
-
         $renderer->doc.=$html;
 
         global $conf;
