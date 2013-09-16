@@ -62,7 +62,16 @@ class helper_plugin_tabinclude extends DokuWiki_Plugin {
             $html.='<div id="dwpl-ti-loading" class="dwpl-ti-loading">'.$this->getLang('loading').'</div>';
         }
         $html.='<div id="dwpl-ti-content" class="dwpl-ti-content">';
+
+        $goto = $this->getLang('gotohere');
+        $pagelink = tpl_link(wl($tabs[$init_page_idx]['page']),$goto,'',true);
+        if($this->getConf('goto_link_header')!=0)
+            $html.= '<div class="dwpl-ti-permalink-header">'.$pagelink.'</div>'.NL;
         $html.=tpl_include_page($tabs[$init_page_idx]['page'],false);
+        if($this->getConf('goto_link_footer')!=0)
+            $html.= '<div class="dwpl-ti-permalink-footer">'.$pagelink.'</div>'.NL;
+        $html.= '</div></div>'.NL.'</div>'.NL;
+
         $html.= '</div></div>'.NL.'</div>'.NL;
 
         $renderer->doc.=$html;
