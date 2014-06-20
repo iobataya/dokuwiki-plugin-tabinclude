@@ -23,15 +23,25 @@ function dwpl_ti_refresh(_this, page){
  * Initial process
  */
 function dwpl_ti_init(){
-    // set event handler
-    jQuery('ul.dwpl-ti li div.dwpl-ti-tab-title').each(function(){
-        jQuery(this).click(function(){
-            // unselect all tabs
-            jQuery('.dwpl-ti-tab-title').removeClass('selected');
-            // select a tab
-            jQuery(this).addClass('selected');
-            dwpl_ti_refresh(jQuery(this), jQuery(this).attr('value'));
-        });
+    // Click event for AJAX tabs
+    jQuery('ul.dwpl-ti li div.dwpl-ti-tab-title').click(function(){
+        jQuery('.dwpl-ti-tab-title').removeClass('selected');
+        jQuery(this).addClass('selected');
+        dwpl_ti_refresh(jQuery(this), jQuery(this).attr('value'));
+    });
+    // Show initial page if necessary
+    var init_ajax=jQuery('#dwpl-ti-read-init-page');
+    if(init_ajax){
+        dwpl_ti_refresh(init_ajax,init_ajax.attr('value'));
+    }
+
+    // Click event for Embedded tabs
+    jQuery(".dwpl-ti-tab-embd-title").click(function() {
+        var num = jQuery(".dwpl-ti-tab-embd-title").index(this);
+        jQuery(".dwpl-ti-tab-embd-title").removeClass('selected');
+        jQuery(this).addClass('selected');
+        jQuery(".dwpl-ti-tab-embd").addClass('hidden');
+        jQuery(".dwpl-ti-tab-embd").eq(num).removeClass('hidden');
     });
 }
 jQuery(function(){dwpl_ti_init();});
