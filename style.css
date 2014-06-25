@@ -39,18 +39,24 @@ div#dwpl-ti-container li.dwpl-ti-tab {
   margin:0 0.5em;
 }
 
+div#dwpl-ti-container li.dwpl-ti-tab a{
+  color: __text_alt__;
+}
+
 div#dwpl-ti-container li.dwpl-ti-tab:hover {
   background-color:__background_alt__;
   text-decoration:underline;
 }
 
-div#dwpl-ti-container li.dwpl-ti-tab div.dwpl-ti-tab-title{
+div#dwpl-ti-container li.dwpl-ti-tab div
+{
   margin:0;
   padding:0;
   cursor:pointer;
 }
 
-div#dwpl-ti-container li.dwpl-ti-tab div.dwpl-ti-tab-title.selected{
+div#dwpl-ti-container li.dwpl-ti-tab .selected
+{
   color:__text__;
 }
 div#dwpl-ti-container li.dwpl-ti-tab div.error
