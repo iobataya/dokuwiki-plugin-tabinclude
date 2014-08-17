@@ -5,3 +5,4 @@ $lang['hideloading']      = 'Hide loading message (AJAX mode)';
 $lang['ajax_init_page']   = 'Read initial tab page by AJAX (AJAX mode)';
 $lang['goto_link_header'] = 'Show page link at header';
 $lang['goto_link_footer'] = 'Show page link at footer';
+$lang['toc_in_tab']       = 'Show TOC in tab pages';
