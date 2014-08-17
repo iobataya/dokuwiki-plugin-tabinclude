@@ -158,9 +158,11 @@ class helper_plugin_tabinclude extends DokuWiki_Plugin {
         $pagelink = tpl_link(wl($tabs[$init_page_idx]['page']),$goto,'',true);
         if($this->getConf('goto_link_header')!=0)
             $html.= '<div class="dwpl-ti-permalink-header">'.$pagelink.'</div>'.NL;
+
         if($this->getConf('ajax_init_page')==0){
-            $html.=tpl_include_page($tabs[$init_page_idx]['page'],false);
+            $html.=$this->getTabContent($tabs[$init_page_idx]['page'],($this->getConf('toc_in_tab')==1));
         }
+
         if($this->getConf('goto_link_footer')!=0)
             $html.= '<div class="dwpl-ti-permalink-footer">'.$pagelink.'</div>'.NL;
         $html.= '</div></div>'.NL.'</div>'.NL;
@@ -208,7 +210,9 @@ class helper_plugin_tabinclude extends DokuWiki_Plugin {
         $pagelink = tpl_link(wl($tabs[$init_page_idx]['page']),$goto,'',true);
         if($this->getConf('goto_link_header')!=0)
             $html.= '<div class="dwpl-ti-permalink-header">'.$pagelink.'</div>'.NL;
-        $html.=tpl_include_page($tabs[$init_page_idx]['page'],false);
+
+        $html.=$this->getTabContent($tabs[$init_page_idx]['page'],($this->getConf('toc_in_tab')==1));
+
         if($this->getConf('goto_link_footer')!=0)
             $html.= '<div class="dwpl-ti-permalink-footer">'.$pagelink.'</div>'.NL;
         $html.= '</div></div>'.NL.'</div>'.NL;
@@ -261,7 +265,9 @@ class helper_plugin_tabinclude extends DokuWiki_Plugin {
             $pagelink = tpl_link(wl($tabs[$i]['page']),$goto,'',true);
             if($this->getConf('goto_link_header')!=0)
                 $html.= '<div class="dwpl-ti-permalink-header">'.$pagelink.'</div>'.NL;
-            $html.=tpl_include_page($tabs[$i]['page'],false);
+
+            $html.=$this->getTabContent($tabs[$i]['page'],($this->getConf('toc_in_tab')==1));
+
             if($this->getConf('goto_link_footer')!=0)
                 $html.= '<div class="dwpl-ti-permalink-footer">'.$pagelink.'</div>'.NL;
             $html.= '</div></div>'.NL;
@@ -320,5 +326,18 @@ class helper_plugin_tabinclude extends DokuWiki_Plugin {
         }
 
         return true;
+    }
+
+    /**
+     * Get output html of a tab
+     */
+    function getTabContent($tabID, $show_toc=false){
+        global $ID;
+        $tmpID = $ID;
+        $ID = $tabID;
+        $html = $show_toc ? tpl_toc(true):'';
+        $html.=tpl_include_page($ID,false);
+        $ID = $tmpID;
+        return $html;
     }
 }
