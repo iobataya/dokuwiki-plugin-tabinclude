@@ -5,3 +5,4 @@ $meta['ajax_init_page']   = array('onoff');
 $meta['hideloading']      = array('onoff');
 $meta['goto_link_header'] = array('onoff');
 $meta['goto_link_footer'] = array('onoff');
+$meta['toc_in_tab']       = array('onoff');
