@@ -11,3 +11,4 @@ $lang['hideloading']           = '불러오는 중 메시지 숨기기 (AJAX 모
 $lang['ajax_init_page']        = 'AJAX가 초기 탭 페이지를 읽기 (AJAX 모드)';
 $lang['goto_link_header']      = '머리글에 문서 링크 보이기';
 $lang['goto_link_footer']      = '바닥글에 문서 링크 보이기';
+$lang['toc_in_tab']            = '탭 페이지에서 목차 보이기';
