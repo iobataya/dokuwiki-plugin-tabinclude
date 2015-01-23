@@ -99,16 +99,20 @@ class helper_plugin_tabinclude extends DokuWiki_Plugin {
                 if($page=='') continue;
             }
 
-            // Show namespace(s) of page name in tab ?
+            // Build tab title
             resolve_pageid(getNS($ID),$page,$exists);
             if($title==''){
-                $title = $this->getConf('namespace_in_tab')?$page:noNS($page);
-            }
-            // Show first heading as tab name ?
-            if($this->getConf('use_first_heading')){
-                $meta_title= p_get_metadata($page,'title');
-                if($meta_title!=''){
-                    $title = $meta_title;
+                // Show first heading as tab name ?
+                if($this->getConf('use_first_heading')){
+                    $meta_title= p_get_metadata($page,'title');
+                    if($meta_title!=''){
+                        $title = $meta_title;
+                    }
+                }
+
+                // Show namespace(s) of page name in tab ?
+                if($title==''){
+                    $title = $this->getConf('namespace_in_tab')?$page:noNS($page);
                 }
             }
 
