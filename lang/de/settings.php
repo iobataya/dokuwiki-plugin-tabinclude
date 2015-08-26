@@ -5,9 +5,11 @@
  * 
  * @author Matthias Schulte <dokuwiki@lupo49.de>
  * @author Egmont Schreiter <egmont.schreiter@gmx.de>
+ * @author Padhie <develop@padhie.de>
  */
 $lang['use_first_heading']     = 'Erste Überschrift im Tab verwenden';
 $lang['namespace_in_tab']      = 'Namespaces für Seite mit folgender ID einschließen';
 $lang['hideloading']           = 'Fortschrittsanzeige nicht anzeigen';
 $lang['goto_link_header']      = 'Seitenadresse in der Kopfzeile anzeigen';
 $lang['goto_link_footer']      = 'Seitenadresse in der Fußzeile anzeigen';
+$lang['toc_in_tab']            = 'Zeige TOC im Tab-Seite';
