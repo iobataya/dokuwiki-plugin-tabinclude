@@ -19,14 +19,14 @@ class syntax_plugin_tabinclude_link extends DokuWiki_Syntax_Plugin{
  /**
   * handle syntax
   */
-  function handle($match, $state, $pos, &$handler){
+  function handle($match, $state, $pos, Doku_Handler $handler){
     $match = substr($match,9,-2); // strip markup
     return $this->helper->getTabPages($match);
   }
  /**
   * Render tab control
   */
-  function render($mode, &$renderer, $data) {
+  function render($mode, Doku_Renderer $renderer, $data) {
       list($state, $tabs,$init_page_idx,$class) = $data;
       if ($mode=='xhtml'){
           $this->helper->renderLinkTabs($renderer,$tabs,$init_page_idx,$class);
