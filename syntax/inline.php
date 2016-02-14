@@ -20,7 +20,7 @@ class syntax_plugin_tabinclude_inline extends DokuWiki_Syntax_Plugin{
     /**
      * handle syntax
      */
-    function handle($match, $state, $pos, &$handler){
+    function handle($match, $state, $pos, Doku_Handler $handler){
         $match = substr($match,12,-2); // strip markup
         return $this->helper->getTabPages($match); // inline mode
     }
@@ -28,7 +28,7 @@ class syntax_plugin_tabinclude_inline extends DokuWiki_Syntax_Plugin{
     /**
      * Render tab control
      */
-    function render($mode, &$renderer, $data) {
+    function render($mode, Doku_Renderer $renderer, $data) {
         list($state, $tabs,$init_page_idx,$class) = $data;
         if ($mode=='xhtml'){
             $this->helper->renderTabsHtml($renderer,$tabs,$init_page_idx,$class);
