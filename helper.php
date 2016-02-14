@@ -26,7 +26,7 @@ class helper_plugin_tabinclude extends DokuWiki_Plugin {
                 'return' => array('html' => 'string'),
         );
         $result[] = array(
-                'name'   => 'renderTabsOdt',
+                'name'   => 'getOdtHtml',
                 'desc'   => 'Render tabs ODT of DokuWiki pages',
                 'params' => array(
                         'renderer' => 'renderer',
@@ -285,7 +285,7 @@ class helper_plugin_tabinclude extends DokuWiki_Plugin {
     /**
      * Get tab ODT from pagenames
      */
-    function renderTabsOdt(&$renderer,$tabs){
+    function getOdtHtml(&$renderer,$tabs){
         $renderer->strong_open();
         $renderer->doc.='Tab pages';
         $renderer->strong_close();
