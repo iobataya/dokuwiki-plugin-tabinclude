@@ -2,7 +2,7 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Myeongjin <aranet100@gmail.com>
  */
 $lang['use_first_heading']     = '탭에서 1단계 문단 제목 사용';
