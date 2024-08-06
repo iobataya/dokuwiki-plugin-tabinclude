@@ -127,7 +127,7 @@ class helper_plugin_tabinclude extends DokuWiki_Plugin {
                 $tabs[] = array('page'=>hsc($page),'title'=>hsc($title));
             }
         }
-        return array($state,$tabs,$init_page_idx,hsc(trim($class)));
+        return array(DOKU_LEXER_MATCHED,$tabs,$init_page_idx,hsc(trim($class)));
     }
 
     /**
