@@ -237,7 +237,7 @@ class helper_plugin_tabinclude extends DokuWiki_Plugin {
 
         // render all tabs !
         if($class) $class=' class="'.$class.'"';
-        $html.= '<div id="dwpl-ti-container"'.$class.'>'.NL;
+        $html= '<div id="dwpl-ti-container"'.$class.'>'.NL;
         $html.='<ul class="dwpl-ti">'.NL;
         $sz = count($tabs);
         for($i=0;$i<$sz;$i++){
